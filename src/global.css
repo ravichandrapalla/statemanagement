@@ -1,0 +1,81 @@
+*,
+::after,
+::before {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+.outer-container {
+  height: 70%;
+  width: 70%;
+  background-color: green;
+  border-radius: 15px;
+}
+
+.header {
+  height: 15%;
+  padding: 1rem;
+  background: rgb(203, 4, 4);
+  overflow: hidden;
+  border: 2px solid black;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+#search-input {
+  border-radius: 20px;
+  border: none;
+  padding: 0.5rem;
+}
+
+.input-container {
+  border-radius: 20px;
+  border: 2px solid grey;
+  padding: 0.5rem;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+input:focus {
+  border: none;
+  outline: none;
+}
+
+.search-btn {
+  height: 100%;
+  border: none;
+  background-color: antiquewhite;
+  padding: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.moviecard {
+  display: flex;
+  flex-direction: column;
+  /* height: 200px;
+  width: 100px; */
+  background-color: pink;
+  padding: 0.5rem;
+  font-size: 2rem;
+}
+
+.moviecard > img {
+  height: 80%;
+}
+
+.moviecard > p {
+  height: 20%;
+}
+
+.body {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
