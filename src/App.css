@@ -2,9 +2,9 @@
   text-align: center;
   height: 100vh;
   width: 100vw;
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   background-color: rgb(203, 4, 4);
 }
 
