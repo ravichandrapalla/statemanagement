@@ -107,18 +107,28 @@ input:focus {
     width: 100%;
     visibility: hidden;
   }
+  .nav-list {
+    flex-direction: column;
+    width: 100%;
+    background-color: green;
+  }
+  .nav-links {
+    align-self: flex-end;
+    width: 7em;
+    background-color: grey;
+    padding: 1em;
+  }
 }
 
-ul {
+.nav-list {
   overflow: hidden;
   list-style: none;
   display: flex;
-  flex-direction: column;
   padding: 1rem;
-  gap: 8rem;
+  column-gap: 8rem;
 }
 
-li {
+.nav-links {
   font-size: 1.2rem;
   color: white;
 }

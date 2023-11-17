@@ -4,9 +4,9 @@ import "../global.css";
 const NavLinks = ({ list }) => {
   return (
     <div id="navLinks">
-      <ul>
+      <ul className="nav-list">
         {list?.map((item) => {
-          return <li>{item}</li>;
+          return <li className="nav-links">{item}</li>;
         })}
       </ul>
     </div>

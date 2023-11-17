@@ -66,12 +66,7 @@ const MovieFinder = () => {
     <>
       <header>
         <SearchBar setSearchTitle={setSearchTitle} />
-        <ImMenu
-          color="green"
-          size={30}
-          id="menu-icon"
-          onClick={handleMenuClick}
-        />
+        <ImMenu color="green" size={30} id="menu" onClick={handleMenuClick} />
         <NavLinks list={navList} />
       </header>
       <main>
