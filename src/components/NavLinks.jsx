@@ -3,7 +3,7 @@ import "../global.css";
 
 const NavLinks = ({ list }) => {
   return (
-    <div id="navLinks">
+    <div className="navLinks hidden">
       <ul className="nav-list">
         {list?.map((item) => {
           return <li className="nav-links">{item}</li>;

@@ -33,36 +33,16 @@ const MovieFinder = () => {
   //   console.log("movies ", movies, "total ", totalMovies);
   // }, [movies]);
   const handleMenuClick = () => {
-    const navLinks = document.getElementById("navLinks");
-
-    navLinks.style.visibility =
-      navLinks.style.visibility === "visible" ? "" : "visible";
+    // const navLinks = document.querySelector(".navLinks");
+    // // navLinks.classList.toggle("hidden");
+    // navLinks.style.height = navLinks.style.width === "0px" ? "100%" : "0px";
+    // // navLinks.style.visibility
+    // console.log(navLinks.style);
+    const navLinks = document.querySelector(".navLinks");
+    navLinks.classList.toggle("visible");
   };
 
   return (
-    // <div className="outer-container">
-    //   <div className="header">
-    //     <div className="input-container">
-    //       <input
-    //         type="text"
-    //         id="search-input"
-    //         placeholder="Search for a Movie"
-    //         ref={inputRef}
-    //       ></input>
-    //       <button
-    //         className="search-btn"
-    //         onClick={(e) => setSearchTitle(inputRef.current.value)}
-    //       >
-    //         <FaSearch />
-    //       </button>
-    //     </div>
-    //   </div>
-    //   <div className="body">
-    //     {movies.map((movie) => (
-    //       <MovieBox data={movie} />
-    //     ))}
-    //   </div>
-    // </div>
     <>
       <header>
         <SearchBar setSearchTitle={setSearchTitle} />
@@ -80,3 +60,27 @@ const MovieFinder = () => {
 };
 
 export default MovieFinder;
+
+// <div className="outer-container">
+//   <div className="header">
+//     <div className="input-container">
+//       <input
+//         type="text"
+//         id="search-input"
+//         placeholder="Search for a Movie"
+//         ref={inputRef}
+//       ></input>
+//       <button
+//         className="search-btn"
+//         onClick={(e) => setSearchTitle(inputRef.current.value)}
+//       >
+//         <FaSearch />
+//       </button>
+//     </div>
+//   </div>
+//   <div className="body">
+//     {movies.map((movie) => (
+//       <MovieBox data={movie} />
+//     ))}
+//   </div>
+// </div>
