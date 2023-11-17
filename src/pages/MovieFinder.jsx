@@ -50,6 +50,10 @@ const MovieFinder = () => {
         <NavLinks list={navList} />
       </header>
       <main>
+        <div className="total-tag">
+          <span>Total Results : {totalMovies}</span>
+        </div>
+
         {movies.map((movie) => (
           <MovieBox data={movie} />
         ))}
