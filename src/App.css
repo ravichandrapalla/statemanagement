@@ -2,6 +2,7 @@
   text-align: center;
   height: 100vh;
   width: 100vw;
+  min-width: 385px;
   /* display: flex;
   justify-content: center;
   align-items: center; */

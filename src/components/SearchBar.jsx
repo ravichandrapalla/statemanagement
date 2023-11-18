@@ -3,6 +3,11 @@ import { FaSearch } from "react-icons/fa";
 
 const SearchBar = ({ setSearchTitle }) => {
   const inputRef = useRef();
+  const handleEnter = (e) => {
+    if (e.key === "Enter") {
+      setSearchTitle(inputRef.current.value);
+    }
+  };
   return (
     <div className="input-container">
       <input
@@ -10,6 +15,7 @@ const SearchBar = ({ setSearchTitle }) => {
         id="search-input"
         placeholder="Search for a Movie"
         ref={inputRef}
+        onKeyDown={handleEnter}
       ></input>
       <button
         className="search-btn"
