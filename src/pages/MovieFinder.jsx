@@ -1,5 +1,4 @@
-import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../global.css";
 import { ImMenu } from "react-icons/im";
 import { searchMovie } from "../services/api";
@@ -59,9 +58,11 @@ const MovieFinder = () => {
         <NavLinks list={navList} />
       </header>
       {isloading ? (
-        <Loading />
+        <main className="loading">
+          <Loading />
+        </main>
       ) : (
-        <main>
+        <main className="main">
           <div className="total-tag">
             <span>Total Results : {totalMovies}</span>
           </div>
@@ -71,7 +72,9 @@ const MovieFinder = () => {
           ))}
         </main>
       )}
-      <footer></footer>
+      <footer>
+        <span>&copy; 2023 Movie Finder. All rights reserved.</span>
+      </footer>
     </>
   );
 };

@@ -5,13 +5,6 @@
   font-size: 62.5%;
 }
 
-/* .outer-container {
-  height: 70%;
-  width: 70%;
-  background-color: green;
-  border-radius: 15px;
-} */
-
 .loading-container {
   width: 10rem;
   height: 10rem;
@@ -21,6 +14,7 @@ header {
   padding: 2rem;
   overflow: hidden;
   width: 100%;
+  height: 10%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -73,6 +67,8 @@ input:focus {
   align-items: center;
   transition: transform 0.5s;
   cursor: pointer;
+  align-self: flex-start;
+  animation: fadeIn 0.5s ease-in-out forwards;
 }
 
 .moviecard:hover {
@@ -91,7 +87,7 @@ input:focus {
   width: 100%;
   padding: 1rem;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   font-size: 3rem;
 }
 .moviecard > img {
@@ -111,6 +107,20 @@ input:focus {
   overflow: hidden;
   padding: 0.5rem;
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(
+      -20px
+    ); /* Optional: Start from a slightly left position */
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .body {
   display: flex;
   flex-wrap: wrap;
@@ -197,10 +207,39 @@ input:focus {
   visibility: visible;
 }
 
-main {
+main.main {
+  height: 85%;
   padding: 1rem;
   background-color: #ae2d11;
+  justify-content: flex-start;
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
 }
+
+main.loading {
+  height: 85%;
+  padding: 1rem;
+  background-color: #ae2d11;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+footer {
+  padding: 1rem;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .outer-container {
+  height: 70%;
+  width: 70%;
+  background-color: green;
+  border-radius: 15px;
+} */
