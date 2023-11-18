@@ -6,11 +6,13 @@ import { searchMovie } from "../services/api";
 import MovieBox from "../components/MovieBox";
 import SearchBar from "../components/SearchBar";
 import NavLinks from "../components/NavLinks";
+import Loading from "../components/Loading";
 
 const MovieFinder = () => {
   const [searchTitle, setSearchTitle] = useState("");
   const [movies, setMovies] = useState([]);
   const [totalMovies, setTotalMovies] = useState(0);
+  const [isloading, setIsLoading] = useState(false);
   const [navList, setNavList] = useState([
     "link-1",
     "link-2",
@@ -22,6 +24,7 @@ const MovieFinder = () => {
     if (searchTitle) {
       searchMovie(searchTitle).then((resp) => {
         if (resp && resp.data && resp.data.Response === "True") {
+          setIsLoading(false);
           setMovies(resp.data.Search);
           setTotalMovies(Number(resp.data.totalResults));
         }
@@ -41,23 +44,33 @@ const MovieFinder = () => {
     const navLinks = document.querySelector(".navLinks");
     navLinks.classList.toggle("visible");
   };
+  const handleSearch = (searchText) => {
+    if (searchText) {
+      setSearchTitle(searchText);
+      setIsLoading(true);
+    }
+  };
 
   return (
     <>
       <header>
-        <SearchBar setSearchTitle={setSearchTitle} />
+        <SearchBar setSearchTitle={(text) => handleSearch(text)} />
         <ImMenu color="green" size={30} id="menu" onClick={handleMenuClick} />
         <NavLinks list={navList} />
       </header>
-      <main>
-        <div className="total-tag">
-          <span>Total Results : {totalMovies}</span>
-        </div>
+      {isloading ? (
+        <Loading />
+      ) : (
+        <main>
+          <div className="total-tag">
+            <span>Total Results : {totalMovies}</span>
+          </div>
 
-        {movies.map((movie) => (
-          <MovieBox data={movie} />
-        ))}
-      </main>
+          {movies.map((movie) => (
+            <MovieBox data={movie} />
+          ))}
+        </main>
+      )}
       <footer></footer>
     </>
   );
