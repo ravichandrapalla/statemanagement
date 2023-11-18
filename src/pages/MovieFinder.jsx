@@ -11,6 +11,7 @@ const MovieFinder = () => {
   const [searchTitle, setSearchTitle] = useState("");
   const [movies, setMovies] = useState([]);
   const [totalMovies, setTotalMovies] = useState(0);
+  const [error, setError] = useState("");
   const [isloading, setIsLoading] = useState(false);
   const [navList, setNavList] = useState([
     "link-1",
@@ -21,13 +22,23 @@ const MovieFinder = () => {
 
   useEffect(() => {
     if (searchTitle) {
-      searchMovie(searchTitle).then((resp) => {
-        if (resp && resp.data && resp.data.Response === "True") {
-          setIsLoading(false);
-          setMovies(resp.data.Search);
-          setTotalMovies(Number(resp.data.totalResults));
-        }
-      });
+      searchMovie(searchTitle)
+        .then((resp) => {
+          console.log(resp);
+          if (resp && resp.data && resp.data.Response === "True") {
+            setError("");
+            setIsLoading(false);
+            setMovies(resp.data.Search);
+            setTotalMovies(Number(resp.data.totalResults));
+          } else if (resp && resp.data && resp.data.Response === "False") {
+            setError(resp.data.Error);
+            setIsLoading(false);
+            setMovies([]);
+            setTotalMovies(0);
+            console.log("in else", resp.data.Error);
+          }
+        })
+        .catch((err) => console.log(err));
     }
     console.log("search title", searchTitle);
   }, [searchTitle]);
@@ -62,15 +73,24 @@ const MovieFinder = () => {
           <Loading />
         </main>
       ) : (
-        <main className="main">
+        <>
           <div className="total-tag">
-            <span>Total Results : {totalMovies}</span>
+            {totalMovies ? (
+              <span className="results-success-text">{`Found ${totalMovies} Results for \"${searchTitle}\"`}</span>
+            ) : (
+              searchTitle && (
+                <span className="results-failure-text">{`No Movies Found with \"${searchTitle}\" Title`}</span>
+              )
+            )}
           </div>
-
-          {movies.map((movie) => (
-            <MovieBox data={movie} />
-          ))}
-        </main>
+          <main className="main">
+            <div className="trail">
+              {movies.map((movie) => (
+                <MovieBox data={movie} />
+              ))}
+            </div>
+          </main>
+        </>
       )}
       <footer>
         <span>&copy; 2023 Movie Finder. All rights reserved.</span>
