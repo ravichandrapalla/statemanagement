@@ -6,7 +6,11 @@ const NavLinks = ({ list }) => {
     <div className="navLinks hidden">
       <ul className="nav-list">
         {list?.map((item) => {
-          return <li className="nav-links">{item}</li>;
+          return (
+            <li className="nav-links" key={item}>
+              {item}
+            </li>
+          );
         })}
       </ul>
     </div>

@@ -1,30 +1,35 @@
 import React, { useEffect, useState } from "react";
 import "../global.css";
 import { ImMenu } from "react-icons/im";
-import { searchMovie } from "../services/api";
+import { getMovieDetails, searchMovie } from "../services/api";
 import MovieBox from "../components/MovieBox";
 import SearchBar from "../components/SearchBar";
 import NavLinks from "../components/NavLinks";
 import Loading from "../components/Loading";
+import MovieDetailsModal from "../components/MovieDetailsModal";
 
 const MovieFinder = () => {
   const [searchTitle, setSearchTitle] = useState("");
   const [movies, setMovies] = useState([]);
   const [totalMovies, setTotalMovies] = useState(0);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [currentMovieDetails, setCurrentMovieDetails] = useState({});
+  const [movieDetailsModalVisible, setMovieDetailsModalVisible] =
+    useState(false);
   const [error, setError] = useState("");
   const [isloading, setIsLoading] = useState(false);
   const [navList, setNavList] = useState([
     "link-1",
     "link-2",
     "link-3",
-    "link-3",
+    "link-4",
   ]);
 
   useEffect(() => {
     if (searchTitle) {
       searchMovie(searchTitle)
         .then((resp) => {
-          console.log(resp);
+          // console.log(resp);
           if (resp && resp.data && resp.data.Response === "True") {
             setError("");
             setIsLoading(false);
@@ -40,11 +45,28 @@ const MovieFinder = () => {
         })
         .catch((err) => console.log(err));
     }
-    console.log("search title", searchTitle);
+    // console.log("search title", searchTitle);
   }, [searchTitle]);
-  // useEffect(() => {
-  //   console.log("movies ", movies, "total ", totalMovies);
-  // }, [movies]);
+
+  useEffect(() => {
+    if (selectedMovie) {
+      setIsLoading(true);
+      getMovieDetails(selectedMovie)
+        .then((resp) => {
+          if (resp && resp.data && resp.data.Response === "True") {
+            setError("");
+            setCurrentMovieDetails(resp.data);
+            setIsLoading(false);
+          } else if (resp && resp.data && resp.data.Response === "False") {
+            setError(resp.data.Error);
+            setCurrentMovieDetails({});
+            setIsLoading(false);
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [selectedMovie]);
+
   const handleMenuClick = () => {
     // const navLinks = document.querySelector(".navLinks");
     // // navLinks.classList.toggle("hidden");
@@ -60,6 +82,12 @@ const MovieFinder = () => {
       setIsLoading(true);
     }
   };
+  const handleMovieBoxClicked = (imdbId) => {
+    setSelectedMovie(imdbId);
+    setMovieDetailsModalVisible(true);
+
+    // console.log(imdbId);
+  };
 
   return (
     <>
@@ -74,21 +102,28 @@ const MovieFinder = () => {
         </main>
       ) : (
         <>
-          <div className="total-tag">
+          <article className="total-tag">
             {totalMovies ? (
-              <span className="results-success-text">{`Found ${totalMovies} Results for \"${searchTitle}\"`}</span>
+              <span className="results-success-text">{`Found ${totalMovies} Results for "${searchTitle}"`}</span>
             ) : (
               searchTitle && (
-                <span className="results-failure-text">{`No Movies Found with \"${searchTitle}\" Title`}</span>
+                <span className="results-failure-text">{`No Movies Found with "${searchTitle}" Title`}</span>
               )
             )}
-          </div>
+          </article>
           <main className="main">
             <div className="trail">
               {movies.map((movie) => (
-                <MovieBox data={movie} />
+                <MovieBox
+                  data={movie}
+                  key={movie.imdbID}
+                  handleMovieBoxClicked={handleMovieBoxClicked}
+                />
               ))}
             </div>
+            {movieDetailsModalVisible && (
+              <MovieDetailsModal details={currentMovieDetails} />
+            )}
           </main>
         </>
       )}
