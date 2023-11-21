@@ -27,6 +27,9 @@ const MovieFinder = () => {
 
   useEffect(() => {
     if (searchTitle) {
+      setMovieDetailsModalVisible(false);
+      setSelectedMovie(null);
+      setIsLoading(true);
       searchMovie(searchTitle)
         .then((resp) => {
           // console.log(resp);
@@ -79,7 +82,6 @@ const MovieFinder = () => {
   const handleSearch = (searchText) => {
     if (searchText) {
       setSearchTitle(searchText);
-      setIsLoading(true);
     }
   };
   const handleMovieBoxClicked = (imdbId) => {
@@ -87,6 +89,10 @@ const MovieFinder = () => {
     setMovieDetailsModalVisible(true);
 
     // console.log(imdbId);
+  };
+  const handleMovieBoxClick = () => {
+    setMovieDetailsModalVisible(false);
+    setSelectedMovie(null);
   };
 
   return (
@@ -122,7 +128,10 @@ const MovieFinder = () => {
               ))}
             </div>
             {movieDetailsModalVisible && (
-              <MovieDetailsModal details={currentMovieDetails} />
+              <MovieDetailsModal
+                details={currentMovieDetails}
+                handleMovieBoxClose={handleMovieBoxClick}
+              />
             )}
           </main>
         </>
